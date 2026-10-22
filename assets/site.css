@@ -114,4 +114,11 @@ input[type="email"], input[type="password"] {
 
 [hidden] { display: none !important; }
 
+/* Tables (privacy policy): scroll sideways on narrow screens instead of widening the page */
+.table-wrap { overflow-x: auto; margin: 12px 0; }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 0.9rem; }
+th, td { border: 1px solid var(--border); padding: 8px; text-align: left; vertical-align: top; }
+th { color: var(--text); }
+td { color: var(--muted); }
+
 footer { margin-top: 32px; font-size: 0.85rem; color: var(--muted); }
