@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>Pomodoro Timer — Password</title>
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<main>
+  <header class="site">
+    <a class="home" href="/">🍅 Pomodoro Timer</a>
+    <nav class="lang-switch"><a href="?lang=it" data-lang="it">IT</a><a href="?lang=en" data-lang="en">EN</a></nav>
+  </header>
+
+  <h1 data-i18n="title">Reimposta o cambia password</h1>
+
+  <!-- 1. Ask for the email link (also used to change a known password) -->
+  <section class="card" data-state="request">
+    <p data-i18n="requestText">Inserisci l'email del tuo account: ti invieremo un link per scegliere una nuova password.</p>
+    <form id="request-form">
+      <label for="email" data-i18n="emailLabel">Email</label>
+      <input id="email" type="email" autocomplete="email" required>
+      <div class="notice error" id="request-error" hidden></div>
+      <button class="button" type="submit" id="request-button" data-i18n="requestButton">Invia il link</button>
+    </form>
+  </section>
+
+  <section class="card" data-state="sent" hidden>
+    <div class="notice ok" data-i18n="sentText">Se esiste un account con questa email, riceverai a breve un link. Aprilo da questo stesso browser.</div>
+  </section>
+
+  <section class="card" data-state="verifying" hidden>
+    <p data-i18n="verifying">Verifica del link in corso…</p>
+  </section>
+
+  <!-- 2. Link opened in the browser that asked for it: choose the new password here -->
+  <section class="card" data-state="form" hidden>
+    <form id="password-form">
+      <label for="password" data-i18n="newPasswordLabel">Nuova password</label>
+      <input id="password" type="password" autocomplete="new-password" minlength="6" required>
+      <label for="password-confirm" data-i18n="confirmPasswordLabel">Conferma password</label>
+      <input id="password-confirm" type="password" autocomplete="new-password" minlength="6" required>
+      <div class="notice error" id="password-error" hidden></div>
+      <button class="button" type="submit" id="password-button" data-i18n="saveButton">Salva password</button>
+    </form>
+  </section>
+
+  <section class="card" data-state="done" hidden>
+    <div class="notice ok" data-i18n="doneText">Password aggiornata. Accedi nell'app con la nuova password.</div>
+    <a class="button" href="pomodorotimer://" data-i18n="openApp">Apri l'app</a>
+  </section>
+
+  <!-- 3. Link requested from the app: only the app can complete it -->
+  <section class="card" data-state="app" hidden>
+    <p data-i18n="appText">Hai chiesto il link dall'app: per scegliere la nuova password aprilo nell'app sul telefono da cui l'hai richiesto.</p>
+    <a class="button" id="open-app" href="pomodorotimer://reset-password" data-i18n="openApp">Apri l'app</a>
+    <p data-i18n="appDesktopText">Sei su un computer? Apri questa email dal telefono, oppure richiedi qui un nuovo link e completa tutto da questo browser.</p>
+    <button class="button secondary" type="button" data-goto="request" data-i18n="newLinkButton">Richiedi un nuovo link</button>
+  </section>
+
+  <section class="card" data-state="error" hidden>
+    <div class="notice error" data-i18n="errorText">Il link non è valido o è scaduto (vale una sola volta e per poco tempo).</div>
+    <button class="button" type="button" data-goto="request" data-i18n="newLinkButton">Richiedi un nuovo link</button>
+  </section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.js"></script>
+<script src="/assets/site.js"></script>
+<script>
+  (function () {
+    var t = PomodoroSite.translate({
+      it: {
+        pageTitle: 'Pomodoro Timer — Password',
+        title: 'Reimposta o cambia password',
+        requestText: "Inserisci l'email del tuo account: ti invieremo un link per scegliere una nuova password.",
+        emailLabel: 'Email',
+        requestButton: 'Invia il link',
+        sentText: 'Se esiste un account con questa email, riceverai a breve un link. Aprilo da questo stesso browser.',
+        verifying: 'Verifica del link in corso…',
+        newPasswordLabel: 'Nuova password',
+        confirmPasswordLabel: 'Conferma password',
+        saveButton: 'Salva password',
+        doneText: "Password aggiornata. Accedi nell'app con la nuova password.",
+        openApp: "Apri l'app",
+        appText: "Hai chiesto il link dall'app: per scegliere la nuova password aprilo nell'app sul telefono da cui l'hai richiesto.",
+        appDesktopText: 'Sei su un computer? Apri questa email dal telefono, oppure richiedi qui un nuovo link e completa tutto da questo browser.',
+        newLinkButton: 'Richiedi un nuovo link',
+        errorText: 'Il link non è valido o è scaduto (vale una sola volta e per poco tempo).',
+        tooShort: 'La password deve contenere almeno 6 caratteri.',
+        mismatch: 'Le due password non coincidono.',
+        genericError: 'Qualcosa è andato storto. Riprova tra qualche minuto.',
+        tooMany: 'Troppe richieste in poco tempo. Riprova tra qualche minuto.',
+      },
+      en: {
+        pageTitle: 'Pomodoro Timer — Password',
+        title: 'Reset or change password',
+        requestText: "Enter your account email: we'll send you a link to choose a new password.",
+        emailLabel: 'Email',
+        requestButton: 'Send link',
+        sentText: "If an account exists for this email, you'll receive a link shortly. Open it in this same browser.",
+        verifying: 'Verifying link…',
+        newPasswordLabel: 'New password',
+        confirmPasswordLabel: 'Confirm password',
+        saveButton: 'Save password',
+        doneText: 'Password updated. Sign in to the app with your new password.',
+        openApp: 'Open the app',
+        appText: 'You requested this link from the app: to choose the new password, open it in the app on the phone you used.',
+        appDesktopText: 'On a computer? Open this email on your phone, or request a new link here and finish everything in this browser.',
+        newLinkButton: 'Request a new link',
+        errorText: 'This link is invalid or has expired (it works once and only for a short time).',
+        tooShort: 'The password must be at least 6 characters.',
+        mismatch: 'The passwords do not match.',
+        genericError: 'Something went wrong. Please try again in a few minutes.',
+        tooMany: 'Too many requests. Please try again in a few minutes.',
+      },
+    });
+
+    var client = PomodoroSite.createClient();
+    var auth = PomodoroSite.readAuthParams();
+
+    function showError(id, text) {
+      var el = document.getElementById(id);
+      el.textContent = text;
+      el.hidden = false;
+    }
+
+    document.querySelectorAll('[data-goto]').forEach(function (button) {
+      button.addEventListener('click', function () { PomodoroSite.show(button.getAttribute('data-goto')); });
+    });
+
+    if (auth.error || auth.errorDescription) {
+      PomodoroSite.clearAuthParams();
+      PomodoroSite.show('error');
+    } else if (auth.code && PomodoroSite.hasCodeVerifier()) {
+      PomodoroSite.clearAuthParams();
+      PomodoroSite.show('verifying');
+      client.auth.exchangeCodeForSession(auth.code).then(function (result) {
+        PomodoroSite.show(result.error ? 'error' : 'form');
+      });
+    } else if (auth.code) {
+      // The verifier is on the phone that asked for the link: hand the code to the app
+      PomodoroSite.clearAuthParams();
+      var link = PomodoroSite.appLink('reset-password', auth.code);
+      document.getElementById('open-app').setAttribute('href', link);
+      PomodoroSite.show('app');
+      if (PomodoroSite.isMobile()) {
+        window.location.href = link;
+      }
+    } else {
+      PomodoroSite.show('request');
+    }
+
+    document.getElementById('request-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      var button = document.getElementById('request-button');
+      button.disabled = true;
+      client.auth
+        .resetPasswordForEmail(document.getElementById('email').value.trim(), {
+          redirectTo: window.location.origin + '/reset-password/',
+        })
+        .then(function (result) {
+          button.disabled = false;
+          // Supabase answers the same whether or not the account exists; errors are rate limits or network
+          if (result.error) {
+            showError('request-error', result.error.status === 429 ? t.tooMany : t.genericError);
+          } else {
+            PomodoroSite.show('sent');
+          }
+        });
+    });
+
+    document.getElementById('password-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      var password = document.getElementById('password').value;
+      if (password.length < 6) return showError('password-error', t.tooShort);
+      if (password !== document.getElementById('password-confirm').value) return showError('password-error', t.mismatch);
+      var button = document.getElementById('password-button');
+      button.disabled = true;
+      client.auth.updateUser({ password: password }).then(function (result) {
+        button.disabled = false;
+        if (result.error) return showError('password-error', result.error.message || t.genericError);
+        // The browser session was only needed for this change
+        client.auth.signOut({ scope: 'local' });
+        PomodoroSite.show('done');
+      });
+    });
+  })();
+</script>
+</body>
+</html>

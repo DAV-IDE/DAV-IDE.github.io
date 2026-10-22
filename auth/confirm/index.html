@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>Pomodoro Timer — Conferma email</title>
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<main>
+  <header class="site">
+    <a class="home" href="/">🍅 Pomodoro Timer</a>
+    <nav class="lang-switch"><a href="?lang=it" data-lang="it">IT</a><a href="?lang=en" data-lang="en">EN</a></nav>
+  </header>
+
+  <h1 data-i18n="title">Conferma email</h1>
+
+  <!-- Reached from the confirmation email: Supabase verified the address before sending the user here -->
+  <section class="card" data-state="confirmed" hidden>
+    <div class="notice ok" data-i18n="confirmedText">Email confermata, il tuo account è attivo.</div>
+    <p data-i18n="confirmedHint">Torna nell'app per accedere: i progressi verranno sincronizzati nel cloud.</p>
+    <a class="button" id="open-app" href="pomodorotimer://" data-i18n="openApp">Apri l'app</a>
+  </section>
+
+  <section class="card" data-state="error" hidden>
+    <div class="notice error" data-i18n="errorText">Il link di conferma non è valido o è scaduto. Inserisci la tua email per riceverne uno nuovo.</div>
+  </section>
+
+  <!-- Resend form: shown after an error and when the page is opened from the home page -->
+  <section class="card" data-resend>
+    <p data-i18n="resendText">Non hai ricevuto l'email di conferma? Inserisci l'indirizzo usato per registrarti.</p>
+    <form id="resend-form">
+      <label for="email" data-i18n="emailLabel">Email</label>
+      <input id="email" type="email" autocomplete="email" required>
+      <div class="notice error" id="resend-error" hidden></div>
+      <div class="notice ok" id="resend-ok" hidden data-i18n="sentText">Se l'account esiste e non è ancora confermato, riceverai una nuova email a breve.</div>
+      <button class="button" type="submit" id="resend-button" data-i18n="resendButton">Invia di nuovo</button>
+    </form>
+  </section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.js"></script>
+<script src="/assets/site.js"></script>
+<script>
+  (function () {
+    var t = PomodoroSite.translate({
+      it: {
+        pageTitle: 'Pomodoro Timer — Conferma email',
+        title: 'Conferma email',
+        confirmedText: 'Email confermata, il tuo account è attivo.',
+        confirmedHint: "Torna nell'app per accedere: i progressi verranno sincronizzati nel cloud.",
+        openApp: "Apri l'app",
+        errorText: 'Il link di conferma non è valido o è scaduto. Inserisci la tua email per riceverne uno nuovo.',
+        resendText: "Non hai ricevuto l'email di conferma? Inserisci l'indirizzo usato per registrarti.",
+        emailLabel: 'Email',
+        sentText: "Se l'account esiste e non è ancora confermato, riceverai una nuova email a breve.",
+        resendButton: 'Invia di nuovo',
+        genericError: 'Qualcosa è andato storto. Riprova tra qualche minuto.',
+        tooMany: 'Troppe richieste in poco tempo. Riprova tra qualche minuto.',
+      },
+      en: {
+        pageTitle: 'Pomodoro Timer — Confirm email',
+        title: 'Confirm email',
+        confirmedText: 'Email confirmed, your account is active.',
+        confirmedHint: 'Go back to the app to sign in: your progress will sync to the cloud.',
+        openApp: 'Open the app',
+        errorText: 'This confirmation link is invalid or has expired. Enter your email to get a new one.',
+        resendText: "Didn't get the confirmation email? Enter the address you signed up with.",
+        emailLabel: 'Email',
+        sentText: "If the account exists and is not confirmed yet, you'll receive a new email shortly.",
+        resendButton: 'Send again',
+        genericError: 'Something went wrong. Please try again in a few minutes.',
+        tooMany: 'Too many requests. Please try again in a few minutes.',
+      },
+    });
+
+    var auth = PomodoroSite.readAuthParams();
+    var resend = document.querySelector('[data-resend]');
+
+    if (auth.error || auth.errorDescription) {
+      PomodoroSite.clearAuthParams();
+      PomodoroSite.show('error');
+    } else if (auth.code) {
+      PomodoroSite.clearAuthParams();
+      resend.hidden = true;
+      // Signed up in the app: the app holds the PKCE verifier and signs in with this code
+      if (!PomodoroSite.hasCodeVerifier()) {
+        var link = PomodoroSite.appLink('auth-callback', auth.code);
+        document.getElementById('open-app').setAttribute('href', link);
+        if (PomodoroSite.isMobile()) {
+          window.location.href = link;
+        }
+      }
+      PomodoroSite.show('confirmed');
+    }
+
+    document.getElementById('resend-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      var button = document.getElementById('resend-button');
+      var errorBox = document.getElementById('resend-error');
+      button.disabled = true;
+      errorBox.hidden = true;
+      PomodoroSite.createClient()
+        .auth.resend({
+          type: 'signup',
+          email: document.getElementById('email').value.trim(),
+          options: { emailRedirectTo: window.location.origin + '/auth/confirm/' },
+        })
+        .then(function (result) {
+          button.disabled = false;
+          if (result.error) {
+            errorBox.textContent = result.error.status === 429 ? t.tooMany : t.genericError;
+            errorBox.hidden = false;
+          } else {
+            document.getElementById('resend-ok').hidden = false;
+          }
+        });
+    });
+  })();
+</script>
+</body>
+</html>
