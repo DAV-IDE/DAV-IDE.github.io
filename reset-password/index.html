@@ -39,9 +39,9 @@
   <section class="card" data-state="form" hidden>
     <form id="password-form">
       <label for="password" data-i18n="newPasswordLabel">Nuova password</label>
-      <input id="password" type="password" autocomplete="new-password" minlength="6" required>
+      <input id="password" type="password" autocomplete="new-password" minlength="8" required>
       <label for="password-confirm" data-i18n="confirmPasswordLabel">Conferma password</label>
-      <input id="password-confirm" type="password" autocomplete="new-password" minlength="6" required>
+      <input id="password-confirm" type="password" autocomplete="new-password" minlength="8" required>
       <div class="notice error" id="password-error" hidden></div>
       <button class="button" type="submit" id="password-button" data-i18n="saveButton">Salva password</button>
     </form>
@@ -87,7 +87,7 @@
         appDesktopText: 'Sei su un computer? Apri questa email dal telefono, oppure richiedi qui un nuovo link e completa tutto da questo browser.',
         newLinkButton: 'Richiedi un nuovo link',
         errorText: 'Il link non è valido o è scaduto (vale una sola volta e per poco tempo).',
-        tooShort: 'La password deve contenere almeno 6 caratteri.',
+        tooShort: 'La password deve contenere almeno 8 caratteri.',
         mismatch: 'Le due password non coincidono.',
         genericError: 'Qualcosa è andato storto. Riprova tra qualche minuto.',
         tooMany: 'Troppe richieste in poco tempo. Riprova tra qualche minuto.',
@@ -109,7 +109,7 @@
         appDesktopText: 'On a computer? Open this email on your phone, or request a new link here and finish everything in this browser.',
         newLinkButton: 'Request a new link',
         errorText: 'This link is invalid or has expired (it works once and only for a short time).',
-        tooShort: 'The password must be at least 6 characters.',
+        tooShort: 'The password must be at least 8 characters.',
         mismatch: 'The passwords do not match.',
         genericError: 'Something went wrong. Please try again in a few minutes.',
         tooMany: 'Too many requests. Please try again in a few minutes.',
@@ -173,7 +173,7 @@
     document.getElementById('password-form').addEventListener('submit', function (event) {
       event.preventDefault();
       var password = document.getElementById('password').value;
-      if (password.length < 6) return showError('password-error', t.tooShort);
+      if (password.length < 8) return showError('password-error', t.tooShort);
       if (password !== document.getElementById('password-confirm').value) return showError('password-error', t.mismatch);
       var button = document.getElementById('password-button');
       button.disabled = true;
