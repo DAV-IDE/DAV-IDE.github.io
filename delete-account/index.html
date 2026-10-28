@@ -3,26 +3,29 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Pomodoro Timer — Eliminazione account / Account deletion</title>
+  <title>Pomodoro Timer — Eliminazione account</title>
   <meta name="description" content="Come eliminare l'account di Pomodoro Timer e i dati associati. How to delete your Pomodoro Timer account and associated data.">
-  <link rel="stylesheet" href="/assets/site.css">
+  <meta name="theme-color" content="#FFDFD9" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#3A1E1C" media="(prefers-color-scheme: dark)">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/site.css?v=2">
 </head>
 <body>
 <main>
   <header class="site">
-    <a class="home" href="/">🍅 Pomodoro Timer</a>
-    <nav class="lang-switch"><a href="#it">IT</a><a href="#en">EN</a></nav>
+    <a class="home" href="/"><img src="/assets/mascot.png" alt="" width="36" height="36">Pomodoro Timer</a>
+    <nav class="lang-switch"><a href="?lang=it" data-lang="it">IT</a><a href="?lang=en" data-lang="en">EN</a></nav>
   </header>
-  <h1>Eliminazione account / Account deletion</h1>
-  <p>Sviluppatore / Developer: Davide Facheris · <code>com.davidefacheris.pomodoro</code></p>
+  <h1 data-i18n="title">Eliminazione account</h1>
 
   <section class="card" id="it" lang="it">
     <h2>Eliminare l'account e i dati</h2>
     <p><strong>Dall'app</strong> (immediato):</p>
     <ol>
       <li>Apri Pomodoro Timer ed effettua l'accesso.</li>
-      <li>Tocca l'icona del profilo in alto e apri <strong>Profilo &amp; Account</strong>.</li>
-      <li>Tocca <strong>Elimina account e dati Cloud</strong> e conferma.</li>
+      <li>Tocca l'icona del profilo in alto e apri <strong>Profilo &amp; account</strong>.</li>
+      <li>Tocca <strong>Elimina account e dati</strong> e conferma.</li>
     </ol>
     <p><strong>Senza l'app</strong>: scrivi dall'indirizzo email del tuo account a
       <a href="mailto:pomodorotimer.support@gmail.com?subject=Eliminazione%20account%20Pomodoro%20Timer">pomodorotimer.support@gmail.com</a>
@@ -44,13 +47,13 @@
     </ul>
   </section>
 
-  <section class="card" id="en" lang="en">
+  <section class="card" id="en" lang="en" hidden>
     <h2>Delete your account and data</h2>
     <p><strong>In the app</strong> (immediate):</p>
     <ol>
       <li>Open Pomodoro Timer and sign in.</li>
-      <li>Tap the profile icon at the top and open <strong>Profile &amp; Account</strong>.</li>
-      <li>Tap <strong>Delete account and Cloud data</strong> and confirm.</li>
+      <li>Tap the profile icon at the top and open <strong>Profile &amp; account</strong>.</li>
+      <li>Tap <strong>Delete account and data</strong> and confirm.</li>
     </ol>
     <p><strong>Without the app</strong>: email
       <a href="mailto:pomodorotimer.support@gmail.com?subject=Pomodoro%20Timer%20account%20deletion">pomodorotimer.support@gmail.com</a>
@@ -72,5 +75,12 @@
     </ul>
   </section>
 </main>
+<script src="/assets/site.js?v=2"></script>
+<script>
+  PomodoroSite.translate({
+    it: { pageTitle: 'Pomodoro Timer — Eliminazione account', title: 'Eliminazione account' },
+    en: { pageTitle: 'Pomodoro Timer — Account deletion', title: 'Account deletion' },
+  });
+</script>
 </body>
 </html>

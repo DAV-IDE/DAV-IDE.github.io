@@ -5,83 +5,104 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pomodoro Timer</title>
   <meta name="description" content="Pomodoro Timer: concentrati e fai crescere il tuo orto. Assistenza, account e privacy.">
-  <link rel="stylesheet" href="/assets/site.css">
+  <meta name="theme-color" content="#FFDFD9" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#3A1E1C" media="(prefers-color-scheme: dark)">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/site.css?v=2">
 </head>
 <body>
 <main>
   <header class="site">
-    <a class="home" href="/">🍅 Pomodoro Timer</a>
+    <a class="home" href="/">Pomodoro Timer</a>
     <nav class="lang-switch"><a href="?lang=it" data-lang="it">IT</a><a href="?lang=en" data-lang="en">EN</a></nav>
   </header>
 
-  <h1 data-i18n="title">Pomodoro Timer</h1>
-  <p data-i18n="subtitle">Concentrati con la tecnica del pomodoro e fai crescere il tuo orto di pomodori.</p>
+  <section class="hero">
+    <img src="/assets/mascot.png" alt="" width="88" height="88">
+    <div>
+      <h1 data-i18n="title">Concentrati e fai crescere il tuo orto</h1>
+      <p data-i18n="subtitle">Ogni sessione con la tecnica del pomodoro fa crescere una pianta di pomodoro.</p>
+    </div>
+  </section>
+  <a class="button hero-action" href="https://play.google.com/store/apps/details?id=com.davidefacheris.pomodoro">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></svg>
+    <span data-i18n="playTitle">Scarica su Google Play</span>
+  </a>
 
-  <div class="options">
-    <a class="option" href="/reset-password/">
-      <strong data-i18n="resetTitle">Reimposta o cambia password</strong>
-      <span data-i18n="resetText">Ricevi via email un link per scegliere una nuova password.</span>
-    </a>
-    <a class="option" href="/auth/confirm/">
-      <strong data-i18n="confirmTitle">Conferma email</strong>
-      <span data-i18n="confirmText">Non hai ricevuto l'email di conferma o il link è scaduto? Inviala di nuovo.</span>
-    </a>
-    <a class="option" href="/delete-account/">
-      <strong data-i18n="deleteTitle">Elimina account</strong>
-      <span data-i18n="deleteText">Come eliminare l'account e i dati associati, anche senza l'app.</span>
-    </a>
-    <a class="option" href="/privacy/">
-      <strong data-i18n="privacyTitle">Privacy policy</strong>
-      <span data-i18n="privacyText">Quali dati raccogliamo e come li usiamo.</span>
-    </a>
-    <a class="option" href="mailto:pomodorotimer.support@gmail.com?subject=Pomodoro%20Timer">
-      <strong data-i18n="supportTitle">Assistenza</strong>
-      <span>pomodorotimer.support@gmail.com</span>
-    </a>
-    <a class="option" href="https://play.google.com/store/apps/details?id=com.davidefacheris.pomodoro">
-      <strong data-i18n="playTitle">Scarica su Google Play</strong>
-      <span data-i18n="playText">Disponibile per Android.</span>
-    </a>
+  <div>
+    <div class="overline" data-i18n="sectionAccount">Account</div>
+    <nav class="list">
+      <a class="row" href="/reset-password/">
+        <span class="tile device"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7.5" cy="15.5" r="4.5"/><path d="M10.7 12.3 20 3m-4 4 3 3m-1.5-4.5L20 8"/></svg></span>
+        <span class="row-text"><strong data-i18n="resetTitle">Reimposta o cambia password</strong><span data-i18n="resetText">Ricevi via email un link per scegliere una nuova password.</span></span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+      </a>
+      <a class="row" href="/auth/confirm/">
+        <span class="tile timer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+        <span class="row-text"><strong data-i18n="confirmTitle">Conferma email</strong><span data-i18n="confirmText">Non hai ricevuto l'email di conferma o il link è scaduto? Inviala di nuovo.</span></span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+      </a>
+      <a class="row" href="/delete-account/">
+        <span class="tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6m4-6v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg></span>
+        <span class="row-text"><strong data-i18n="deleteTitle">Elimina account</strong><span data-i18n="deleteText">Come eliminare l'account e i dati associati, anche senza l'app.</span></span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+      </a>
+    </nav>
   </div>
 
-  <footer data-i18n="footer">Pomodoro Timer · sviluppata da Davide Facheris</footer>
+  <div>
+    <div class="overline" data-i18n="sectionHelp">Aiuto e privacy</div>
+    <nav class="list">
+      <a class="row" href="/privacy/">
+        <span class="tile nature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/></svg></span>
+        <span class="row-text"><strong data-i18n="privacyTitle">Privacy policy</strong><span data-i18n="privacyText">Quali dati raccogliamo e come li usiamo.</span></span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+      </a>
+      <a class="row" href="mailto:pomodorotimer.support@gmail.com?subject=Pomodoro%20Timer">
+        <span class="tile info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></span>
+        <span class="row-text"><strong data-i18n="supportTitle">Assistenza</strong><span>pomodorotimer.support@gmail.com</span></span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+      </a>
+    </nav>
+  </div>
 </main>
-<script src="/assets/site.js"></script>
+<script src="/assets/site.js?v=2"></script>
 <script>
   PomodoroSite.translate({
     it: {
       pageTitle: 'Pomodoro Timer',
-      title: 'Pomodoro Timer',
-      subtitle: 'Concentrati con la tecnica del pomodoro e fai crescere il tuo orto di pomodori.',
+      title: 'Concentrati e fai crescere il tuo orto',
+      subtitle: 'Ogni sessione con la tecnica del pomodoro fa crescere una pianta di pomodoro.',
+      playTitle: 'Scarica su Google Play',
+      sectionAccount: 'Account',
       resetTitle: 'Reimposta o cambia password',
       resetText: 'Ricevi via email un link per scegliere una nuova password.',
       confirmTitle: 'Conferma email',
       confirmText: "Non hai ricevuto l'email di conferma o il link è scaduto? Inviala di nuovo.",
       deleteTitle: 'Elimina account',
       deleteText: "Come eliminare l'account e i dati associati, anche senza l'app.",
+      sectionHelp: 'Aiuto e privacy',
       privacyTitle: 'Privacy policy',
       privacyText: 'Quali dati raccogliamo e come li usiamo.',
       supportTitle: 'Assistenza',
-      playTitle: 'Scarica su Google Play',
-      playText: 'Disponibile per Android.',
-      footer: 'Pomodoro Timer · sviluppata da Davide Facheris',
     },
     en: {
       pageTitle: 'Pomodoro Timer',
-      title: 'Pomodoro Timer',
-      subtitle: 'Focus with the Pomodoro technique and grow your own tomato garden.',
+      title: 'Focus and grow your garden',
+      subtitle: 'Every Pomodoro session grows a tomato plant.',
+      playTitle: 'Get it on Google Play',
+      sectionAccount: 'Account',
       resetTitle: 'Reset or change password',
       resetText: 'Get a link by email to choose a new password.',
       confirmTitle: 'Confirm email',
       confirmText: "Didn't get the confirmation email, or the link expired? Send it again.",
       deleteTitle: 'Delete account',
       deleteText: 'How to delete your account and its data, even without the app.',
+      sectionHelp: 'Help and privacy',
       privacyTitle: 'Privacy policy',
       privacyText: 'What data we collect and how we use it.',
       supportTitle: 'Support',
-      playTitle: 'Get it on Google Play',
-      playText: 'Available for Android.',
-      footer: 'Pomodoro Timer · developed by Davide Facheris',
     },
   });
 </script>

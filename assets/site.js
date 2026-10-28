@@ -9,7 +9,8 @@
   const APP_SCHEME = 'pomodorotimer://';
 
   function readLang() {
-    const fromQuery = new URLSearchParams(window.location.search).get('lang');
+    // ?lang= from the toggle; #it / #en from older links to the privacy and account-deletion pages
+    const fromQuery = new URLSearchParams(window.location.search).get('lang') || window.location.hash.slice(1);
     if (fromQuery === 'it' || fromQuery === 'en') {
       try { localStorage.setItem('pomodoro-site-lang', fromQuery); } catch { /* storage blocked */ }
       return fromQuery;
@@ -23,10 +24,14 @@
 
   const lang = readLang();
 
-  // Fills every [data-i18n] element from strings[lang] and marks the active language link
+  // Fills every [data-i18n] element from strings[lang], shows only the sections in that language
+  // (pages written in both languages) and marks the active language link
   function translate(strings) {
     const table = strings[lang] || strings.it;
     document.documentElement.lang = lang;
+    document.querySelectorAll('main [lang]').forEach(function (el) {
+      el.hidden = el.getAttribute('lang') !== lang;
+    });
     document.querySelectorAll('[data-i18n]').forEach(function (el) {
       const value = table[el.getAttribute('data-i18n')];
       if (value !== undefined) el.textContent = value;
