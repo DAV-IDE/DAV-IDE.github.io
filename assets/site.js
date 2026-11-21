@@ -1,4 +1,4 @@
-/* Pomodoro Timer website — language switch and Supabase helpers shared by the pages */
+/* Pomodoro Timer website — language switch, the window's sky and Supabase helpers shared by the pages */
 (function () {
   'use strict';
 
@@ -90,6 +90,34 @@
     return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
   }
 
+  // The window's sky follows the time of day, as daylightAt in the app (src/domain/daylight.ts): sunrise
+  // and sunset estimated from the date at a mid-European latitude, without asking for the position. Night
+  // turns into dawn in the 45 minutes before sunrise, dawn into day in the hour after, and the reverse at dusk.
+  function momentOf(date) {
+    const start = new Date(date.getFullYear(), 0, 1);
+    const day = Math.floor((date - start) / 86400000);
+    const dayLength = 12 + 3.6 * Math.sin((2 * Math.PI * (day - 80)) / 365);
+    const january = new Date(date.getFullYear(), 0, 1).getTimezoneOffset();
+    const summerTime = date.getTimezoneOffset() < january ? 1 : 0;
+    const noon = 12.4 + summerTime;
+    const sunrise = noon - dayLength / 2;
+    const sunset = noon + dayLength / 2;
+    const hour = date.getHours() + date.getMinutes() / 60;
+    if (hour < sunrise - 0.75 || hour >= sunset + 0.75) return 'night';
+    if (hour < sunrise + 1) return 'dawn';
+    if (hour >= sunset - 1) return 'dusk';
+    return 'day';
+  }
+
+  function paintSky() {
+    const moment = momentOf(new Date());
+    document.querySelectorAll('[data-daylight]').forEach(function (el) {
+      el.setAttribute('data-moment', moment);
+    });
+  }
+  paintSky();
+  setInterval(paintSky, 60000);
+
   function show(id) {
     document.querySelectorAll('[data-state]').forEach(function (el) {
       el.hidden = el.getAttribute('data-state') !== id;
@@ -106,5 +134,6 @@
     appLink: appLink,
     isMobile: isMobile,
     show: show,
+    momentOf: momentOf,
   };
 })();

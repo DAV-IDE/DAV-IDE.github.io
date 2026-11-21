@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="referrer" content="no-referrer">
   <title>Pomodoro Timer — Password</title>
-  <meta name="theme-color" content="#FFDFD9" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#3A1E1C" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#FBF6EE" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#17120F" media="(prefers-color-scheme: dark)">
   <link rel="icon" type="image/png" href="/assets/favicon.png">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-  <link rel="stylesheet" href="/assets/site.css?v=2">
+  <link rel="stylesheet" href="/assets/site.css?v=4">
 </head>
 <body>
 <main>
@@ -69,8 +69,13 @@
     <button class="button" type="button" data-goto="request" data-i18n="newLinkButton">Richiedi un nuovo link</button>
   </section>
 </main>
+<footer class="apps">
+  <a href="/"><img src="/assets/mascot.png" alt="" width="24" height="24">Pomodoro Timer</a>
+  <a href="/condominio/"><img src="/condominio/assets/icon.png" alt="" width="24" height="24">Condominio Rumoroso</a>
+  <span class="by">Davide Facheris</span>
+</footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.js"></script>
-<script src="/assets/site.js?v=2"></script>
+<script src="/assets/site.js?v=3"></script>
 <script>
   (function () {
     var t = PomodoroSite.translate({

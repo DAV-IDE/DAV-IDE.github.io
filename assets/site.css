@@ -1,41 +1,70 @@
-/* Pomodoro Timer website — shared styles (light/dark).
+/* Pomodoro Timer website — shared styles (light/dark), version 3.0 "Davanzale".
    The values mirror the app's tokens in src/constants/theme.ts (see DESIGN.md): warm paper, ripe tomato red,
-   emerald for confirmations, the system font in four weights, radii 8/12/16/24, neutral shadows, short motion. */
+   leaf green, Nunito in four weights, radii 8/12/16/24, warm shadows, short motion. As in the app, the
+   home stands on a windowsill: an arched window whose sky follows the time of day, a wooden shelf and
+   Pomodorino with a speech bubble. Nunito is served from this site (SIL Open Font License): no font
+   request goes to third parties. */
+@font-face { font-family: Nunito; font-weight: 400; font-display: swap; src: url(/assets/fonts/Nunito_400Regular.ttf) format("truetype"); }
+@font-face { font-family: Nunito; font-weight: 600; font-display: swap; src: url(/assets/fonts/Nunito_600SemiBold.ttf) format("truetype"); }
+@font-face { font-family: Nunito; font-weight: 700; font-display: swap; src: url(/assets/fonts/Nunito_700Bold.ttf) format("truetype"); }
+@font-face { font-family: Nunito; font-weight: 800; font-display: swap; src: url(/assets/fonts/Nunito_800ExtraBold.ttf) format("truetype"); }
+
 :root {
   color-scheme: light dark;
 
-  --bg: #faf8f5;
+  --bg: #fbf6ee;
   --surface: #ffffff;
-  --surface-light: #f4f1ec;
-  --surface-active: #eae5de;
-  --border: rgba(41, 37, 36, 0.08);
-  --border-strong: rgba(41, 37, 36, 0.14);
-  --page-top: #ffdfd9;
-  --page-mid: #fff1eb;
+  --surface-light: #f3ece1;
+  --surface-active: #e8ded0;
+  --border: rgba(74, 52, 32, 0.10);
+  --border-strong: rgba(74, 52, 32, 0.18);
 
-  --text: #292524;
-  --text-secondary: #6b635c;
-  --text-muted: #8f877f;
+  /* The wooden shelf and the window (WindowScenes, Colors.windowFrame) */
+  --shelf-top: #ead3b2;
+  --shelf-front: #d2b48a;
+  --shelf-shade: rgba(74, 52, 32, 0.06);
+  --window-frame: #ffffff;
+
+  /* The window's sky: the focus scene by day, then SkyMoments at dawn, dusk and night */
+  --sky-day: #ffd9c4, #fff4e4;
+  --hill-day: #f8cdb6;
+  --sun-day: #ffe7a8;
+  --sky-dawn: #f4b7a6, #ffe6c9;
+  --hill-dawn: #e9b29d;
+  --sun-dawn: #ffc978;
+  --sky-dusk: #e8877a, #ffc79c;
+  --hill-dusk: #c77f73;
+  --sun-dusk: #ff9f5a;
+  --sky-night: #18223f, #373c69;
+  --hill-night: #2a2c4e;
+  --moon: #f3efd6;
+  --star: #fff8e1;
+
+  --text: #2b221c;
+  --text-secondary: #6b5d52;
+  --text-muted: #756759;
   --text-on-color: #ffffff;
 
-  --primary: #ff4d4d;
-  --primary-pressed: #e03636;
-  --primary-dim: rgba(255, 77, 77, 0.12);
-  --primary-soft: #fff1f2;
-  --primary-border: #fecdd3;
-  --link: #e03636;
+  --primary: #d63a22;
+  --primary-pressed: #b8321c;
+  --primary-text: #b8321c;
+  --primary-dim: rgba(214, 58, 34, 0.12);
+  --primary-soft: #fdece7;
+  --primary-border: #f6c9bd;
+  --link: #b8321c;
 
-  --emerald: #10b981;
-  --emerald-soft: #ecfdf5;
-  --emerald-border: #a7f3d0;
+  --emerald: #26754a;
+  --emerald-soft: #e7f4ea;
+  --emerald-border: #bfddc8;
 
   /* Section colors of Settings and Shop (SectionColors) */
-  --tint-timer: #0284c7;
-  --tint-device: #2563eb;
-  --tint-info: #6366f1;
-  --tint-neutral: #6b635c;
+  --tint-timer: #1f6f7a;
+  --tint-device: #2f64b0;
+  --tint-info: #5a4fcf;
+  --tint-sound: #6e45c9;
+  --tint-neutral: #6b5d52;
 
-  --shadow-rgb: 41, 37, 36;
+  --shadow-rgb: 74, 52, 32;
 
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -50,33 +79,50 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #171412;
-    --surface: #221e1b;
-    --surface-light: #2b2622;
-    --surface-active: #3a342e;
-    --border: rgba(250, 245, 240, 0.08);
-    --border-strong: rgba(250, 245, 240, 0.16);
-    --page-top: #3a1e1c;
-    --page-mid: #261a19;
+    --bg: #17120f;
+    --surface: #221b17;
+    --surface-light: #2b231e;
+    --surface-active: #3a3029;
+    --border: rgba(255, 240, 225, 0.10);
+    --border-strong: rgba(255, 240, 225, 0.18);
 
-    --text: #f5f0eb;
-    --text-secondary: #bdb4ab;
-    --text-muted: #968d85;
+    --shelf-top: #5a4636;
+    --shelf-front: #46362a;
+    --shelf-shade: rgba(0, 0, 0, 0.25);
+    --window-frame: #4a3b30;
 
-    --primary: #ff5a5a;
-    --primary-pressed: #e04343;
-    --primary-dim: rgba(255, 90, 90, 0.16);
-    --primary-soft: #3a1f1f;
-    --primary-border: #5c2a2a;
-    --link: #ff7a7a;
+    --sky-day: #4a251c, #2a1b16;
+    --hill-day: #5c2e22;
+    --sun-day: #c98f2c;
+    --sky-dawn: #5a3330, #3a2723;
+    --hill-dawn: #6b3e35;
+    --sun-dawn: #e0a456;
+    --sky-dusk: #5e2e2c, #3e2420;
+    --hill-dusk: #5a2e29;
+    --sun-dusk: #e07f45;
+    --sky-night: #0f1630, #22264a;
+    --hill-night: #1d1f3a;
+    --moon: #e6e1c4;
 
-    --emerald-soft: #12302a;
-    --emerald-border: #1e5143;
+    --text: #f6efe8;
+    --text-secondary: #c9bcb0;
+    --text-muted: #a39589;
 
-    --tint-timer: #38bdf8;
-    --tint-device: #60a5fa;
-    --tint-info: #818cf8;
-    --tint-neutral: #bdb4ab;
+    --primary-text: #ff8b73;
+    --primary-dim: rgba(255, 106, 80, 0.16);
+    --primary-soft: #3a1c16;
+    --primary-border: #5e2a20;
+    --link: #ff8b73;
+
+    --emerald: #5cbd83;
+    --emerald-soft: #173326;
+    --emerald-border: #24503a;
+
+    --tint-timer: #5ec4d0;
+    --tint-device: #7faeef;
+    --tint-info: #a9a3f6;
+    --tint-sound: #b79cf2;
+    --tint-neutral: #c9bcb0;
 
     --shadow-rgb: 0, 0, 0;
   }
@@ -94,30 +140,43 @@
 body {
   margin: 0;
   min-height: 100vh;
-  /* Soft phase background that fades into the paper, like the app screens */
-  background: linear-gradient(180deg, var(--page-top) 0, var(--page-mid) 200px, var(--bg) 480px) no-repeat, var(--bg);
+  background: var(--bg);
   color: var(--text);
-  font: 400 15px/22px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font: 400 15px/22px Nunito, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
-main { max-width: 680px; margin: 0 auto; padding: 16px 16px 64px; }
+main { max-width: 680px; margin: 0 auto; padding: 16px 16px 32px; }
 
-/* Top bar: app name with the mascot on the left, language segmented control on the right */
+/* Top bar: app name with Pomodorino on the left, language switch on the right */
 header.site {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 24px;
+  padding-bottom: 12px;
+  margin-bottom: 36px;
 }
+/* On the inner pages the header stands on the shelf; the home has the whole windowsill instead */
+header.site::after {
+  content: "";
+  position: absolute;
+  left: -16px;
+  right: -16px;
+  bottom: -14px;
+  height: 14px;
+  background: linear-gradient(180deg, var(--shelf-top) 0 8px, var(--shelf-front) 8px 12px, var(--shelf-shade) 12px 14px);
+}
+.home-page header.site { margin-bottom: 8px; }
+.home-page header.site::after { display: none; }
 header.site a.home {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   color: var(--text);
   text-decoration: none;
-  font-weight: 700;
+  font-weight: 800;
   font-size: 18px;
   letter-spacing: -0.2px;
 }
@@ -138,18 +197,18 @@ header.site a.home img { width: 36px; height: 36px; }
   text-align: center;
   font-size: 13px;
   line-height: 18px;
-  font-weight: 600;
+  font-weight: 700;
   transition: background-color var(--base) var(--ease), color var(--base) var(--ease), box-shadow var(--base) var(--ease);
 }
 .lang-switch a[aria-current="true"] { background: var(--surface); color: var(--text); box-shadow: var(--elev-sm); }
 
 /* Type scale: title, heading, body, label, caption, overline */
-h1 { font-size: 24px; line-height: 30px; letter-spacing: -0.4px; font-weight: 700; margin: 0 0 8px; }
+h1 { font-size: 24px; line-height: 30px; letter-spacing: -0.3px; font-weight: 800; margin: 0 0 8px; }
 h2 { font-size: 18px; line-height: 24px; letter-spacing: -0.2px; font-weight: 700; margin: 24px 0 8px; }
 .card > h2:first-child { margin-top: 0; }
 p, li { color: var(--text-secondary); }
 p { margin: 8px 0; }
-strong { color: var(--text); font-weight: 600; }
+strong { color: var(--text); font-weight: 700; }
 a { color: var(--link); text-underline-offset: 2px; }
 code { font-size: 0.9em; }
 .overline {
@@ -162,26 +221,148 @@ code { font-size: 0.9em; }
   text-transform: uppercase;
 }
 
-/* Home hero */
-.hero { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
-.hero img { width: 88px; height: 88px; flex: none; }
-.hero p { margin: 0; }
-.hero-action { margin-top: 8px; }
+/* ---- The windowsill (home) ---------------------------------------------------------------- */
+.sill {
+  --moment-sky: var(--sky-day);
+  --moment-hill: var(--hill-day);
+  --moment-sun: var(--sun-day);
+  position: relative;
+  height: 268px;
+  margin: 0 -16px 24px;
+  overflow: hidden;
+}
+.sill[data-moment="dawn"] { --moment-sky: var(--sky-dawn); --moment-hill: var(--hill-dawn); --moment-sun: var(--sun-dawn); }
+.sill[data-moment="dusk"] { --moment-sky: var(--sky-dusk); --moment-hill: var(--hill-dusk); --moment-sun: var(--sun-dusk); }
+.sill[data-moment="night"] { --moment-sky: var(--sky-night); --moment-hill: var(--hill-night); --moment-sun: var(--moon); }
 
+/* The arched window: a white frame, the sky, a far hill, the sun (or the moon) and the bars */
+.window {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  width: 196px;
+  height: 236px;
+  margin-left: -150px;
+  padding: 9px 9px 0;
+  border-radius: 98px 98px 0 0;
+  background: var(--window-frame);
+  box-shadow: var(--elev-md);
+}
+.sky {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 89px 89px 0 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--moment-sky));
+  transition: background var(--slow) var(--ease);
+}
+.sky .sun {
+  position: absolute;
+  left: 30%;
+  top: 34%;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--moment-sun);
+  box-shadow: 0 0 0 8px color-mix(in srgb, var(--moment-sun) 30%, transparent);
+}
+.sill[data-moment="dawn"] .sun { top: 56%; left: 18%; }
+.sill[data-moment="dusk"] .sun { top: 56%; left: 64%; }
+.sill[data-moment="night"] .sun { top: 20%; left: 58%; width: 26px; height: 26px; box-shadow: none; }
+.sky .stars {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background:
+    radial-gradient(1.5px 1.5px at 22% 18%, var(--star) 98%, transparent),
+    radial-gradient(1.5px 1.5px at 40% 34%, var(--star) 98%, transparent),
+    radial-gradient(1px 1px at 76% 44%, var(--star) 98%, transparent),
+    radial-gradient(1.5px 1.5px at 30% 54%, var(--star) 98%, transparent),
+    radial-gradient(1px 1px at 84% 26%, var(--star) 98%, transparent);
+  transition: opacity var(--slow) var(--ease);
+}
+.sill[data-moment="night"] .stars { opacity: 1; }
+.sky .hill {
+  position: absolute;
+  left: -20%;
+  right: -20%;
+  bottom: -52px;
+  height: 110px;
+  border-radius: 50%;
+  background: var(--moment-hill);
+}
+.sky .bar { position: absolute; background: var(--window-frame); }
+.sky .bar.v { left: calc(50% - 2px); top: 0; bottom: 0; width: 4px; }
+.sky .bar.h { left: 0; right: 0; top: 87px; height: 4px; }
+
+/* Pomodorino on the sill, next to the window, with what she says */
+.sill .mascot {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  width: 104px;
+  height: 104px;
+  margin-left: 52px;
+}
+.bubble {
+  position: absolute;
+  left: 50%;
+  bottom: 124px;
+  margin-left: 40px;
+  max-width: 172px;
+  padding: 8px 12px;
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--elev-md);
+  color: var(--text);
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 600;
+}
+/* The bubble's tail points down toward her */
+.bubble::after {
+  content: "";
+  position: absolute;
+  left: 34px;
+  bottom: -6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  transform: rotate(45deg);
+}
+.shelf {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 18px;
+  background: linear-gradient(180deg, var(--shelf-top) 0 10px, var(--shelf-front) 10px 15px, var(--shelf-shade) 15px 18px);
+}
+
+.intro { text-align: center; }
+.intro p { max-width: 460px; margin: 8px auto 0; }
+.intro .button { margin-top: 16px; }
+
+/* ---- Cards, drawers and lists ------------------------------------------------------------- */
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   box-shadow: var(--elev-sm);
   padding: 24px;
   margin-top: 16px;
 }
 
-/* Settings-style list: tinted icon tile, label, description, chevron; thin dividers aligned to the text */
+/* A drawer of the Settings screen: white card, rows with a tinted icon tile, label, description, chevron */
 .list {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   box-shadow: var(--elev-sm);
   overflow: hidden;
 }
@@ -207,9 +388,10 @@ code { font-size: 0.9em; }
 .row:hover { background: var(--surface-light); }
 .row:active { background: var(--surface-active); }
 .row-text { flex: 1; min-width: 0; }
-.row-text strong { display: block; font-weight: 500; }
+.row-text strong { display: block; font-weight: 700; }
 .row-text span { display: block; color: var(--text-secondary); font-size: 12px; line-height: 16px; overflow-wrap: anywhere; }
 .row .chevron { flex: none; width: 18px; height: 18px; color: var(--text-muted); }
+.row img.app-icon { flex: none; width: 34px; height: 34px; border-radius: var(--radius-md); }
 
 .tile {
   --tint: var(--tint-neutral);
@@ -243,7 +425,7 @@ code { font-size: 0.9em; }
   color: var(--text-on-color);
   text-decoration: none;
   font: inherit;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   transition: background-color var(--fast) var(--ease), transform var(--fast) var(--ease), opacity var(--fast) var(--ease);
@@ -258,7 +440,7 @@ code { font-size: 0.9em; }
 :focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 .row:focus-visible { outline-offset: -2px; }
 
-label { display: block; font-size: 13px; line-height: 18px; font-weight: 500; color: var(--text); margin: 16px 0 4px; }
+label { display: block; font-size: 13px; line-height: 18px; font-weight: 600; color: var(--text); margin: 16px 0 4px; }
 input[type="email"], input[type="password"] {
   width: 100%;
   min-height: 44px;
@@ -293,8 +475,35 @@ form .button { margin-top: 16px; }
 .table-wrap { overflow-x: auto; margin: 12px 0; border: 1px solid var(--border); border-radius: var(--radius-md); }
 table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 13px; line-height: 18px; }
 th, td { padding: 8px 12px; text-align: left; vertical-align: top; }
-th { color: var(--text); font-weight: 600; background: var(--surface-light); }
+th { color: var(--text); font-weight: 700; background: var(--surface-light); }
 td { color: var(--text-secondary); border-top: 1px solid var(--border); }
+
+/* The apps on this site, at the bottom of every page (Pomodoro Timer and Condominio Rumoroso) */
+footer.apps {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 20px;
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 18px;
+}
+footer.apps a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-weight: 700;
+  text-decoration: none;
+}
+footer.apps a:hover { color: var(--text); }
+footer.apps img { width: 24px; height: 24px; border-radius: 6px; }
+footer.apps .by { flex-basis: 100%; text-align: center; }
 
 /* Motion: content fades in with a small upward offset, no bounce (also when a state section appears) */
 @keyframes rise {
@@ -307,6 +516,12 @@ main > :nth-child(3) { animation-delay: 80ms; }
 main > :nth-child(4) { animation-delay: 120ms; }
 main > :nth-child(5) { animation-delay: 160ms; }
 main > :nth-child(n + 6) { animation-delay: 200ms; }
+/* Pomodorino breathes on the sill, feet on the ground (the body swells a little, it does not bob) */
+@keyframes breathe {
+  from { transform: scale(1, 1); }
+  to { transform: scale(1.02, 1.045); }
+}
+.sill .mascot { transform-origin: 50% 92%; animation: breathe 1.8s ease-in-out infinite alternate; }
 
 @media (prefers-reduced-motion: reduce), print {
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -314,6 +529,10 @@ main > :nth-child(n + 6) { animation-delay: 200ms; }
 }
 
 @media (max-width: 420px) {
-  .hero img { width: 64px; height: 64px; }
   .card { padding: 16px; }
+  .window { margin-left: -132px; width: 176px; height: 216px; border-radius: 88px 88px 0 0; }
+  .sky { border-radius: 79px 79px 0 0; }
+  .sky .bar.h { top: 77px; }
+  .sill .mascot { margin-left: 46px; width: 92px; height: 92px; }
+  .bubble { margin-left: 30px; max-width: 150px; bottom: 110px; }
 }
